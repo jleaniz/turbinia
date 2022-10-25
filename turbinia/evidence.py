@@ -470,7 +470,7 @@ class Evidence:
       log.error(f'Error running preprocessor for {self.name:s}: {exception!s}')
 
     log.debug(
-        f'Pre-processing evidence self.name is complete, and evidence is in state '
+        f'Pre-processing evidence {self.name} is complete, and evidence is in state '
         f'{self.format_state()}')
 
   def postprocess(self, task_id):
@@ -741,7 +741,7 @@ class DiskPartition(Evidence):
       path_specs = partitions.Enumerate(
           self.parent_evidence, self.partition_location)
     except TurbiniaException as exception:
-      log.error(exception)
+      log.error(str(exception))
 
     if len(path_specs) > 1:
       path_specs_dicts = [path_spec.CopyToDict() for path_spec in path_specs]
