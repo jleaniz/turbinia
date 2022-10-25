@@ -94,7 +94,7 @@ async def create_request(req: request.Request):
     HTTPException: If pre-conditions are not met.
   """
   client = turbinia_client.get_turbinia_client()
-  evidence_list = []
+  evidence_collection = evidence.EvidenceCollection()
   request_id = req.request_id
   group_id = req.group_id
   requester = req.requester
@@ -175,11 +175,11 @@ async def create_request(req: request.Request):
           status_code=400,
           detail='Error creating evidence object from {0!s}'.format(
               req.evidence))
-    evidence_list.append(evidence_object)
+    evidence_collection.add_evidence(evidence_object)
     # If at this point the recipe is None, the TurbiniaClient will create
     # a generic recipe based on recipe_helpers.DEFAULT_RECIPE.
     request_out = client.create_request(
-        evidence_=evidence_list, request_id=request_id, reason=reason,
+        evidence_=evidence_collection, request_id=request_id, reason=reason,
         recipe=recipe, group_id=group_id, requester=requester)
     # Send the Turbinia request to the appropriate queue.
     client.send_request(request_out)

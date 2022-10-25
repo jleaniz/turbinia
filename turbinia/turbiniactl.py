@@ -983,7 +983,7 @@ def process_evidence(
     request = client.create_request(
         request_id=request_id, group_id=group_id, requester=getpass.getuser(),
         group_name=group_name, reason=reason, all_args=all_args)
-    request.evidence.append(evidence_)
+    request.evidence.add_evidence(evidence_)
 
     if args.decryption_keys:
       for credential in args.decryption_keys:

@@ -39,7 +39,7 @@ def getTurbiniaRequest():
   request = message.TurbiniaRequest(
       request_id='deadbeef', context={'kw': [1, 2]})
   rawdisk = evidence.RawDisk(name='My Evidence', source_path='/tmp/foo')
-  request.evidence.append(rawdisk)
+  request.evidence.add_evidence(rawdisk)
   return request
 
 
@@ -83,8 +83,9 @@ class TestTurbiniaRequest(unittest.TestCase):
     self.assertTrue(isinstance(request_new, message.TurbiniaRequest))
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
-    self.assertTrue(isinstance(request_new.evidence[0], evidence.RawDisk))
-    self.assertEqual(request_new.evidence[0].name, 'My Evidence')
+    self.assertTrue(
+        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+    self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testTurbiniaRequestSerializationBadData(self):
     """Tests that TurbiniaRequest will raise error on non-json data."""
@@ -124,8 +125,9 @@ class TestTurbiniaPubSub(unittest.TestCase):
     self.assertTrue(isinstance(request_new, message.TurbiniaRequest))
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
-    self.assertTrue(isinstance(request_new.evidence[0], evidence.RawDisk))
-    self.assertEqual(request_new.evidence[0].name, 'My Evidence')
+    self.assertTrue(
+        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+    self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testBadCheckMessages(self):
     """Test check_messages returns empty list for an invalid message."""
@@ -179,8 +181,9 @@ class TestTurbiniaKombu(unittest.TestCase):
     self.assertTrue(isinstance(request_new, message.TurbiniaRequest))
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
-    self.assertTrue(isinstance(request_new.evidence[0], evidence.RawDisk))
-    self.assertEqual(request_new.evidence[0].name, 'My Evidence')
+    self.assertTrue(
+        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+    self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testBadCheckMessages(self):
     """Test check_messages method with non-json data."""

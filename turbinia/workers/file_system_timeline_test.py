@@ -71,7 +71,7 @@ class FileSystemTimelineTest(TestTurbiniaTaskBase):
     self.assertEqual(task_name, 'FileSystemTimelineTask')
 
     # Check the bodyfile contains the expected file entries.
-    number_of_entries = result.evidence[0].number_of_entries
+    number_of_entries = result.evidence.collection[0].number_of_entries
     self.assertEqual(number_of_entries, 7)
 
     # Ensure run method returns a TurbiniaTaskResult instance.

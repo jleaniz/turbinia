@@ -36,7 +36,7 @@ import turbinia
 
 from turbinia import config
 from turbinia.config import DATETIME_FORMAT
-from turbinia.evidence import evidence_decode
+from turbinia import evidence
 from turbinia.processors import resource_manager
 from turbinia import output_manager
 from turbinia import state_manager
@@ -120,13 +120,14 @@ class TurbiniaTaskResult:
   ]
 
   def __init__(
-      self, evidence=None, input_evidence=None, base_output_dir=None,
+      self, evidence_collection=None, input_evidence=None, base_output_dir=None,
       request_id=None, job_id=None, no_output_manager=False,
       no_state_manager=False):
     """Initialize the TurbiniaTaskResult object."""
 
     self.closed = False
-    self.evidence = evidence if evidence else []
+    self.evidence = evidence_collection if evidence_collection else evidence.EvidenceCollection(
+    )
     self.input_evidence = input_evidence
     self.id = uuid.uuid4().hex
     self.job_id = job_id
@@ -374,8 +375,11 @@ class TurbiniaTaskResult:
       result_copy['run_time'] = None
     if self.input_evidence:
       result_copy['input_evidence'] = None
-    result_copy['evidence'] = [x.serialize() for x in self.evidence]
-
+    evidence_collection = result_copy['evidence']
+    evidence_collection.collection = [
+        x.serialize() for x in self.evidence.collection
+    ]
+    result_copy['evidence'] = evidence_collection
     return result_copy
 
   @classmethod
@@ -395,8 +399,10 @@ class TurbiniaTaskResult:
     if result.run_time:
       result.run_time = timedelta(seconds=result.run_time)
     if result.input_evidence:
-      result.input_evidence = evidence_decode(result.input_evidence)
-    result.evidence = [evidence_decode(x) for x in result.evidence]
+      result.input_evidence = evidence.evidence_decode(result.input_evidence)
+    result.evidence.collection = [
+        evidence.evidence_decode(x) for x in result.evidence.collection
+    ]
 
     return result
 

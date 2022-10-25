@@ -262,7 +262,7 @@ class BaseTurbiniaClient:
     request = TurbiniaRequest(
         request_id=request_id, group_id=group_id, requester=requester,
         recipe=recipe if recipe else default_recipe, context=context,
-        evidence=evidence_, group_name=group_name, reason=reason,
+        evidence_collection=evidence_, group_name=group_name, reason=reason,
         all_args=all_args)
     return request
 

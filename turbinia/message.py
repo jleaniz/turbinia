@@ -46,14 +46,29 @@ class TurbiniaRequest:
 
   def __init__(
       self, request_id=None, group_id=None, requester=None, recipe=None,
-      context=None, evidence=None, group_name=None, reason=None, all_args=None):
+      context=None, evidence_collection=None, group_name=None, reason=None,
+      all_args=None):
     """Initialization for TurbiniaRequest."""
     self.request_id = request_id if request_id else uuid.uuid4().hex
     self.group_id = group_id if group_id else uuid.uuid4().hex
     self.requester = requester if requester else 'user_unspecified'
     self.recipe = recipe if recipe else {'globals': {}}
     self.context = context if context else {}
-    self.evidence = evidence if evidence else []
+
+    # Check that evidence_collection is a valid object
+    if not evidence_collection:
+      self.evidence = evidence.EvidenceCollection(collection=[])
+    if evidence_collection and isinstance(evidence_collection,
+                                          evidence.EvidenceCollection):
+      for evidence_obj in evidence_collection.collection:
+        evidence_obj.validate()
+      self.evidence = evidence_collection
+    else:
+      raise TurbiniaException(
+          'An unexpected evidence_collection attribute was provided.'
+          ' Expected EvidenceCollection, but got {0!s}'.format(
+              type(evidence_collection)))
+
     self.group_name = group_name if group_name else ''
     self.reason = reason if reason else ''
     self.all_args = all_args if all_args else ''
@@ -100,7 +115,9 @@ class TurbiniaRequest:
       raise TurbiniaException(
           'Deserialized object does not have type of {0:s}'.format(self.type))
 
-    obj['evidence'] = [evidence.evidence_decode(e) for e in obj['evidence']]
+    collection = [evidence.evidence_decode(e) for e in obj['evidence']]
+    obj['evidence'] = evidence.EvidenceCollection(collection=collection)
+
     # pylint: disable=attribute-defined-outside-init
     self.__dict__ = obj
 

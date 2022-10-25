@@ -556,12 +556,18 @@ class EvidenceCollection(Evidence):
   def __init__(self, collection=None, *args, **kwargs):
     """Initialization for Evidence Collection object."""
     super(EvidenceCollection, self).__init__(*args, **kwargs)
+    # This statement will avoid serialization errors if collection
+    # is not a list.
+    if collection and not isinstance(collection, list):
+      raise TurbiniaException(
+          'An unexpected collection attribute was provided.'
+          ' Expected a list, but got {0!s}'.format(type(collection)))
     self.collection = collection if collection else []
 
   def serialize(self):
     """Return JSON serializable object."""
-    serialized_evidence = super(EvidenceCollection, self).serialize()
-    serialized_evidence['collection'] = [e.serialize() for e in self.collection]
+    #serialized_evidence = super(EvidenceCollection, self).serialize()
+    serialized_evidence = [e.serialize() for e in self.collection]
     return serialized_evidence
 
   def add_evidence(self, evidence):
