@@ -14,11 +14,10 @@
 # limitations under the License.
 """Job to execute partition enumeration task."""
 
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import DiskPartition
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.gcp import GoogleCloudDisk, GoogleCloudDiskRawEmbedded
+from turbinia.evidence.raw import RawDisk
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.partitions import PartitionEnumerationTask
@@ -51,4 +50,4 @@ class PartitionEnumerationJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(PartitionEnumerationJob)
+manager.JobsManager.Register(PartitionEnumerationJob)

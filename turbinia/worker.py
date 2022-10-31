@@ -177,7 +177,7 @@ class TurbiniaWorkerBase:
     """
     setup()
     # Deregister jobs from denylist/allowlist.
-    job_manager.JobsManager.DeregisterJobs(jobs_denylist, jobs_allowlist)
+    job_manager.JobsManager.DeRegisters(jobs_denylist, jobs_allowlist)
     disabled_jobs = list(config.DISABLED_JOBS) if config.DISABLED_JOBS else []
     disabled_jobs = [j.lower() for j in disabled_jobs]
     # Only actually disable jobs that have not been allowlisted.
@@ -187,7 +187,7 @@ class TurbiniaWorkerBase:
       log.info(
           'Disabling non-allowlisted jobs configured to be disabled in the '
           'config file: {0:s}'.format(', '.join(disabled_jobs)))
-      job_manager.JobsManager.DeregisterJobs(jobs_denylist=disabled_jobs)
+      job_manager.JobsManager.DeRegisters(jobs_denylist=disabled_jobs)
 
     # Check for valid dependencies/directories.
     dependencies = config.ParseDependencies()

@@ -23,9 +23,9 @@ import textwrap
 
 from turbinia import TurbiniaException
 from turbinia import config
-from turbinia.evidence import EvidenceState as state
+from turbinia.evidence.interface import EvidenceState as state
 from turbinia.workers import TurbiniaTask
-from turbinia.evidence import BinaryExtraction
+from turbinia.evidence.directory import BinaryExtraction
 
 
 class BinaryExtractorTask(TurbiniaTask):

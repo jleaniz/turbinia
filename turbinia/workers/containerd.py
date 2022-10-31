@@ -23,8 +23,8 @@ import tempfile
 
 from turbinia import config
 from turbinia import TurbiniaException
-from turbinia.evidence import ContainerdContainer
-from turbinia.evidence import EvidenceState as state
+from turbinia.evidence.containers import ContainerdContainer
+from turbinia.evidence.interface import EvidenceState as state
 from turbinia.workers import Priority
 from turbinia.workers import TurbiniaTask
 

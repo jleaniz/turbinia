@@ -16,11 +16,11 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import RawDisk
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import BodyFile
+from turbinia.evidence.gcp import GoogleCloudDisk
+from turbinia.evidence.gcp import GoogleCloudDiskRawEmbedded
+from turbinia.evidence.raw import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.bodyfile import BodyFile
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.file_system_timeline import FileSystemTimelineTask
@@ -54,4 +54,4 @@ class FileSystemTimelineJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(FileSystemTimelineJob)
+manager.JobsManager.Register(FileSystemTimelineJob)

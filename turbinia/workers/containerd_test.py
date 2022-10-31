@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import unittest
 import mock
 
-from turbinia.evidence import ContainerdContainer
+from turbinia.evidence.containers import ContainerdContainer
 from turbinia.workers.containerd import ContainerdEnumerationTask
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import TurbiniaTaskResult

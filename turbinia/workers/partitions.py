@@ -18,8 +18,8 @@ import logging
 
 from turbinia import config
 from turbinia import TurbiniaException
-from turbinia.evidence import DiskPartition
-from turbinia.evidence import EvidenceState
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence import interface
 from turbinia.lib import text_formatter as fmt
 from turbinia.workers import Priority
 from turbinia.workers import TurbiniaTask
@@ -44,7 +44,7 @@ log = logging.getLogger('turbinia')
 class PartitionEnumerationTask(TurbiniaTask):
   """Task to enumerate partitions in a disk."""
 
-  REQUIRED_STATES = [EvidenceState.ATTACHED]
+  REQUIRED_STATES = [interface.EvidenceState.ATTACHED]
 
   # Task configuration variables from recipe
   TASK_CONFIG = {

@@ -24,7 +24,7 @@ from prometheus_client import Gauge
 
 import turbinia
 from turbinia import workers
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia import config
 from turbinia import job_utils
 from turbinia import state_manager
@@ -377,7 +377,7 @@ class BaseTaskManager:
 
     # Finalize tasks use EvidenceCollection with all evidence created by the
     # request or job.
-    final_evidence = evidence.EvidenceCollection()
+    final_evidence = interface.EvidenceCollection()
     final_evidence.request_id = request_id
     self.running_jobs.append(final_job)
     turbinia_jobs_total.inc()
@@ -518,7 +518,7 @@ class BaseTaskManager:
     # Reprocess new evidence and save instance for later consumption by finalize
     # tasks.
     for evidence_ in task_result.evidence:
-      if isinstance(evidence_, evidence.Evidence):
+      if isinstance(evidence_, interface.Evidence):
         log.info(
             'Task {0:s} from {1:s} returned Evidence {2:s}'.format(
                 task_result.task_name, task_result.worker_name, evidence_.name))

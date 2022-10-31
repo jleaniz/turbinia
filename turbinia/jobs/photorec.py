@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Job to run photorec Task."""
-from __future__ import unicode_literals
-from turbinia.evidence import DiskPartition
+
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.directory import PhotorecOutput
 from turbinia.jobs import interface
 from turbinia.jobs import manager
-from turbinia.evidence import PhotorecOutput
 from turbinia.workers.photorec import PhotorecTask
 
 
@@ -40,4 +40,4 @@ class PhotorecJob(interface.TurbiniaJob):
     return [PhotorecTask() for _ in evidence]
 
 
-manager.JobsManager.RegisterJob(PhotorecJob)
+manager.JobsManager.Register(PhotorecJob)

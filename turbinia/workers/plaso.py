@@ -20,8 +20,8 @@ import os
 import logging
 
 from turbinia import config
-from turbinia.evidence import EvidenceState as state
-from turbinia.evidence import PlasoFile
+from turbinia.evidence.interface import EvidenceState as state
+from turbinia.evidence.plaso import PlasoFile
 from turbinia.workers import TurbiniaTask
 from turbinia.lib import file_helpers
 

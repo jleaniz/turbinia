@@ -20,13 +20,10 @@ import json
 import mock
 import os
 import shutil
-import tempfile
 import unittest
 
 from turbinia import TurbiniaException
-from turbinia import config
-from turbinia import evidence
-from turbinia.evidence import BinaryExtraction
+from turbinia.evidence.directory import BinaryExtraction
 from turbinia.workers import binary_extractor
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import TurbiniaTaskResult

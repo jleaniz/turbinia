@@ -23,7 +23,7 @@ import mock
 
 from six.moves import queue
 
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia import pubsub
 from turbinia import message
 from turbinia import tcelery as celery
@@ -38,7 +38,7 @@ def getTurbiniaRequest():
   """
   request = message.TurbiniaRequest(
       request_id='deadbeef', context={'kw': [1, 2]})
-  rawdisk = evidence.RawDisk(name='My Evidence', source_path='/tmp/foo')
+  rawdisk = interface.RawDisk(name='My Evidence', source_path='/tmp/foo')
   request.evidence.add_evidence(rawdisk)
   return request
 
@@ -84,7 +84,7 @@ class TestTurbiniaRequest(unittest.TestCase):
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
     self.assertTrue(
-        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+        isinstance(request_new.evidence.collection[0], interface.RawDisk))
     self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testTurbiniaRequestSerializationBadData(self):
@@ -94,7 +94,7 @@ class TestTurbiniaRequest(unittest.TestCase):
 
   def testTurbiniaRequestSerializationBadJSON(self):
     """Tests that TurbiniaRequest will raise error on wrong JSON object."""
-    rawdisk = evidence.RawDisk(name='My Evidence', source_path='/tmp/foo')
+    rawdisk = interface.RawDisk(name='My Evidence', source_path='/tmp/foo')
     rawdisk_json = rawdisk.to_json()
     self.assertTrue(isinstance(rawdisk_json, str))
 
@@ -126,7 +126,7 @@ class TestTurbiniaPubSub(unittest.TestCase):
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
     self.assertTrue(
-        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+        isinstance(request_new.evidence.collection[0], interface.RawDisk))
     self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testBadCheckMessages(self):
@@ -182,7 +182,7 @@ class TestTurbiniaKombu(unittest.TestCase):
     self.assertTrue(request_new.context['kw'][1], 2)
     self.assertTrue(request_new.request_id, 'deadbeef')
     self.assertTrue(
-        isinstance(request_new.evidence.collection[0], evidence.RawDisk))
+        isinstance(request_new.evidence.collection[0], interface.RawDisk))
     self.assertEqual(request_new.evidence.collection[0].name, 'My Evidence')
 
   def testBadCheckMessages(self):

@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import DiskPartition
-from turbinia.evidence import TextFile
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.text_file import TextFile
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.strings import StringsAsciiTask
@@ -52,4 +52,4 @@ class StringsJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(StringsJob)
+manager.JobsManager.Register(StringsJob)

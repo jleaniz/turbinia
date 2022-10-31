@@ -20,8 +20,8 @@ import subprocess
 
 from turbinia import TurbiniaException
 
-from turbinia.evidence import EvidenceState as state
-from turbinia.evidence import ReportText
+from turbinia.evidence.interface import EvidenceState as state
+from turbinia.evidence.text_file import ReportText
 from turbinia.lib import text_formatter as fmt
 from turbinia.lib.utils import bruteforce_password_hashes
 from turbinia.lib.utils import extract_files

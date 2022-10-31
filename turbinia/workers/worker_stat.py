@@ -24,7 +24,7 @@ from __future__ import unicode_literals
 import os
 
 from turbinia.workers import TurbiniaTask
-from turbinia.evidence import ReportText
+from turbinia.evidence.text_file import ReportText
 
 
 class StatTask(TurbiniaTask):

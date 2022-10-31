@@ -22,7 +22,7 @@ from fastapi.responses import JSONResponse
 
 from pydantic import ValidationError
 from turbinia import TurbiniaException, client as turbinia_client
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia.lib import recipe_helpers
 from turbinia.api.schemas import request
 from turbinia.api.models import request_status
@@ -94,7 +94,7 @@ async def create_request(req: request.Request):
     HTTPException: If pre-conditions are not met.
   """
   client = turbinia_client.get_turbinia_client()
-  evidence_collection = evidence.EvidenceCollection()
+  evidence_collection = interface.EvidenceCollection()
   request_id = req.request_id
   group_id = req.group_id
   requester = req.requester
@@ -169,7 +169,7 @@ async def create_request(req: request.Request):
       "requester": "tester"
     }
     """
-    evidence_object = evidence.evidence_decode(req.evidence, strict=True)
+    evidence_object = interface.evidence_decode(req.evidence, strict=True)
     if not evidence_object:
       raise HTTPException(
           status_code=400,

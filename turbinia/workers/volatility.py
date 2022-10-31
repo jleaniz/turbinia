@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import os
 
 from turbinia import config
-from turbinia.evidence import VolatilityReport
+from turbinia.evidence.text_file import VolatilityReport
 from turbinia.workers import TurbiniaTask
 
 MAX_REPORT_SIZE = 2**30  # 1 GiB

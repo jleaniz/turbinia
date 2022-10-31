@@ -16,10 +16,10 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import Directory
-from turbinia.evidence import RawDisk
-from turbinia.evidence import ReportText
+from turbinia.evidence.directory import Directory
+from turbinia.evidence.raw import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.text_file import ReportText
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.worker_stat import StatTask
@@ -46,4 +46,4 @@ class StatJob(interface.TurbiniaJob):
     return [StatTask() for _ in evidence]
 
 
-manager.JobsManager.RegisterJob(StatJob)
+manager.JobsManager.Register(StatJob)

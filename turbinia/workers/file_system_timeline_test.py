@@ -16,12 +16,11 @@
 
 from __future__ import unicode_literals
 
-import glob
 import unittest
 import os
 import mock
 
-from turbinia.evidence import BodyFile
+from turbinia.evidence.bodyfile import BodyFile
 from turbinia.workers import file_system_timeline
 from turbinia.workers import TurbiniaTaskResult
 from turbinia.workers.workers_test import TestTurbiniaTaskBase

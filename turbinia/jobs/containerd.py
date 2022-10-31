@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import DiskPartition
-from turbinia.evidence import ContainerdContainer
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.containers import ContainerdContainer
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.containerd import ContainerdEnumerationTask
@@ -45,4 +45,4 @@ class ContainerdEnumerationJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(ContainerdEnumerationJob)
+manager.JobsManager.Register(ContainerdEnumerationJob)

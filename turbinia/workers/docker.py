@@ -21,8 +21,8 @@ from os import path
 import subprocess
 
 from turbinia import TurbiniaException
-from turbinia.evidence import DockerContainer
-from turbinia.evidence import EvidenceState as state
+from turbinia.evidence.containers import DockerContainer
+from turbinia.evidence.interface import EvidenceState as state
 from turbinia.lib import utils
 from turbinia.workers import Priority
 from turbinia.workers import TurbiniaTask

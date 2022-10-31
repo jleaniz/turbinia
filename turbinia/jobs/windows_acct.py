@@ -14,15 +14,12 @@
 # limitations under the License.
 """Job to execute windows_acct analysis task."""
 
-from turbinia.evidence import ContainerdContainer
-from turbinia.evidence import CompressedDirectory
-from turbinia.evidence import Directory
-from turbinia.evidence import DockerContainer
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import RawDisk
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import ReportText
+from turbinia.evidence.containers import ContainerdContainer, DockerContainer
+from turbinia.evidence.directory import Directory, CompressedDirectory
+from turbinia.evidence.gcp import GoogleCloudDisk, GoogleCloudDiskRawEmbedded
+from turbinia.evidence.raw import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.text_file import ReportText
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.analysis import windows_acct
@@ -51,4 +48,4 @@ class WindowsAccountAnalysisJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(WindowsAccountAnalysisJob)
+manager.JobsManager.Register(WindowsAccountAnalysisJob)

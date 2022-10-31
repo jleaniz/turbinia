@@ -23,7 +23,7 @@ import uuid
 import logging
 import six
 
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia import TurbiniaException
 
 log = logging.getLogger('turbinia')
@@ -57,9 +57,9 @@ class TurbiniaRequest:
 
     # Check that evidence_collection is a valid object
     if not evidence_collection:
-      self.evidence = evidence.EvidenceCollection(collection=[])
-    if evidence_collection and isinstance(evidence_collection,
-                                          evidence.EvidenceCollection):
+      self.evidence = interface.EvidenceCollection(collection=[])
+    elif evidence_collection and isinstance(evidence_collection,
+                                            interface.EvidenceCollection):
       for evidence_obj in evidence_collection.collection:
         evidence_obj.validate()
       self.evidence = evidence_collection
@@ -115,8 +115,8 @@ class TurbiniaRequest:
       raise TurbiniaException(
           f'Deserialized object does not have type of {self.type:s}')
 
-    collection = [evidence.evidence_decode(e) for e in obj['evidence']]
-    obj['evidence'] = evidence.EvidenceCollection(collection=collection)
+    collection = [interface.evidence_decode(e) for e in obj['evidence']]
+    obj['evidence'] = interface.EvidenceCollection(collection=collection)
 
     # pylint: disable=attribute-defined-outside-init
     self.__dict__ = obj

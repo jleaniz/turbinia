@@ -20,8 +20,8 @@ import os
 
 from turbinia import TurbiniaException
 from turbinia.workers import TurbiniaTask
-from turbinia.evidence import EvidenceState as state
-from turbinia.evidence import BodyFile
+from turbinia.evidence.interface import EvidenceState as state
+from turbinia.evidence.bodyfile import BodyFile
 
 if TurbiniaTask.check_worker_role():
   try:

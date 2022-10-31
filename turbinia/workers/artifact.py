@@ -19,8 +19,8 @@ from __future__ import unicode_literals
 import os
 
 from turbinia import config
-from turbinia.evidence import ExportedFileArtifact
-from turbinia.evidence import EvidenceState as state
+from turbinia.evidence.exported_file_artifact import ExportedFileArtifact
+from turbinia.evidence.interface import EvidenceState as state
 from turbinia.workers import TurbiniaTask
 
 

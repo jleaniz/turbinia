@@ -16,7 +16,7 @@
 
 from __future__ import unicode_literals
 
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia.jobs import interface
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 

@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import ChromiumProfile
-from turbinia.evidence import TextFile
+from turbinia.evidence.chromium_profile import ChromiumProfile
+from turbinia.evidence.text_file import TextFile
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.hindsight import HindsightTask
@@ -45,4 +45,4 @@ class HindsightJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(HindsightJob)
+manager.JobsManager.Register(HindsightJob)

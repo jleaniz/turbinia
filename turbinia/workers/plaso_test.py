@@ -18,7 +18,6 @@ import logging
 import os
 import sys
 
-from turbinia.workers import plaso
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 
 

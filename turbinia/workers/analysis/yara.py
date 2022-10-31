@@ -21,8 +21,8 @@ import re
 from turbinia import config
 from turbinia import TurbiniaException
 
-from turbinia.evidence import EvidenceState as state
-from turbinia.evidence import ReportText
+from turbinia.evidence.interface import EvidenceState as state
+from turbinia.evidence.text_file import ReportText
 from turbinia.lib import file_helpers
 from turbinia.lib import text_formatter as fmt
 from turbinia.workers import Priority

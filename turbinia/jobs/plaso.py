@@ -14,20 +14,13 @@
 # limitations under the License.
 """Job to execute Plaso task."""
 
-from __future__ import unicode_literals
-
-import logging
-
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import BodyFile
-from turbinia.evidence import ContainerdContainer
-from turbinia.evidence import DockerContainer
-from turbinia.evidence import CompressedDirectory
-from turbinia.evidence import Directory
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import PlasoFile
-from turbinia.evidence import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.bodyfile import BodyFile
+from turbinia.evidence.containers import ContainerdContainer, DockerContainer
+from turbinia.evidence.directory import CompressedDirectory, Directory
+from turbinia.evidence.gcp import GoogleCloudDisk, GoogleCloudDiskRawEmbedded
+from turbinia.evidence.plaso import PlasoFile
+from turbinia.evidence.raw import RawDisk
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.plaso import PlasoParserTask
@@ -64,4 +57,4 @@ class PlasoJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(PlasoJob)
+manager.JobsManager.Register(PlasoJob)

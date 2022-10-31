@@ -20,7 +20,7 @@ import os
 
 from turbinia import config
 from turbinia.workers import TurbiniaTask
-from turbinia.evidence import PlasoCsvFile
+from turbinia.evidence.plaso import PlasoCsvFile
 
 
 class PsortTask(TurbiniaTask):

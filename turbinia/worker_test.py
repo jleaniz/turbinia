@@ -87,37 +87,37 @@ class TestTurbiniaPsqWorker(unittest.TestCase):
     """Test that worker job allowlist and denylists are setup correctly."""
     mock_config.PSQ_TOPIC = 'foo'
     manager.JobsManager._job_classes = {}
-    manager.JobsManager.RegisterJob(manager_test.TestJob1)
-    manager.JobsManager.RegisterJob(manager_test.TestJob2)
-    manager.JobsManager.RegisterJob(manager_test.TestJob3)
+    manager.JobsManager.Register(manager_test.TestJob1)
+    manager.JobsManager.Register(manager_test.TestJob2)
+    manager.JobsManager.Register(manager_test.TestJob3)
 
     # Check denylist
     TurbiniaPsqWorker(['testjob1'], [])
     self.assertListEqual(
         sorted(list(manager.JobsManager.GetJobNames())),
         ['testjob2', 'testjob3'])
-    manager.JobsManager.RegisterJob(manager_test.TestJob1)
+    manager.JobsManager.Register(manager_test.TestJob1)
 
     # Check denylist with DISABLED_JOBS config
     mock_config.DISABLED_JOBS = ['testjob1']
     TurbiniaPsqWorker(['testjob2'], [])
     self.assertListEqual(list(manager.JobsManager.GetJobNames()), ['testjob3'])
-    manager.JobsManager.RegisterJob(manager_test.TestJob1)
-    manager.JobsManager.RegisterJob(manager_test.TestJob2)
+    manager.JobsManager.Register(manager_test.TestJob1)
+    manager.JobsManager.Register(manager_test.TestJob2)
     mock_config.DISABLED_JOBS = ['']
 
     # Check allowlist
     TurbiniaPsqWorker([], ['testjob1'])
     self.assertListEqual(list(manager.JobsManager.GetJobNames()), ['testjob1'])
-    manager.JobsManager.RegisterJob(manager_test.TestJob2)
-    manager.JobsManager.RegisterJob(manager_test.TestJob3)
+    manager.JobsManager.Register(manager_test.TestJob2)
+    manager.JobsManager.Register(manager_test.TestJob3)
 
     # Check allowlist of item in DISABLED_JOBS config
     mock_config.DISABLED_JOBS = ['testjob1', 'testjob2']
     TurbiniaPsqWorker([], ['testjob1'])
     self.assertListEqual(list(manager.JobsManager.GetJobNames()), ['testjob1'])
-    manager.JobsManager.RegisterJob(manager_test.TestJob2)
-    manager.JobsManager.RegisterJob(manager_test.TestJob3)
+    manager.JobsManager.Register(manager_test.TestJob2)
+    manager.JobsManager.Register(manager_test.TestJob3)
 
   @mock.patch('turbinia.worker.subprocess.Popen')
   @mock.patch('logging.Logger.warning')

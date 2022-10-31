@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import os
 
 from turbinia import config
-from turbinia.evidence import FinalReport
+from turbinia.evidence.text_file import FinalReport
 from turbinia.workers import TurbiniaTask
 
 

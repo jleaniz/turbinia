@@ -16,9 +16,9 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import TextFile
-from turbinia.evidence import FilteredTextFile
-from turbinia.evidence import PlasoCsvFile
+from turbinia.evidence.text_file import TextFile
+from turbinia.evidence.text_file import FilteredTextFile
+from turbinia.evidence.plaso import PlasoCsvFile
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.grep import GrepTask
@@ -46,4 +46,4 @@ class GrepJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(GrepJob)
+manager.JobsManager.Register(GrepJob)

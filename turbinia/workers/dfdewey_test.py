@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import unittest
 import mock
 
-from turbinia.evidence import ReportText
+from turbinia.evidence.text_file import ReportText
 from turbinia.workers import dfdewey
 from turbinia.workers import TurbiniaTaskResult
 from turbinia.workers.workers_test import TestTurbiniaTaskBase

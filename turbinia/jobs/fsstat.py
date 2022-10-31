@@ -13,15 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Job to run fsstat Task."""
-from __future__ import unicode_literals
-from turbinia.evidence import DiskPartition
+
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.text_file import ReportText
 from turbinia.jobs import interface
 from turbinia.jobs import manager
-from turbinia.evidence import ReportText
 from turbinia.workers.fsstat import FsstatTask
 
 
 class FsstatJob(interface.TurbiniaJob):
+  """Fsstat Job."""
 
   evidence_input = [DiskPartition]
   evidence_output = [ReportText]
@@ -40,4 +41,4 @@ class FsstatJob(interface.TurbiniaJob):
     return [FsstatTask() for _ in evidence]
 
 
-manager.JobsManager.RegisterJob(FsstatJob)
+manager.JobsManager.Register(FsstatJob)

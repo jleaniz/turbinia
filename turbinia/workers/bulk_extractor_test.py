@@ -23,7 +23,7 @@ import unittest
 import textwrap
 import mock
 
-from turbinia.evidence import BulkExtractorOutput
+from turbinia.evidence.directory import BulkExtractorOutput
 from turbinia.workers import bulk_extractor
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import TurbiniaTaskResult

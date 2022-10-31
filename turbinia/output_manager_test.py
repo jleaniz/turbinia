@@ -25,7 +25,7 @@ import tempfile
 import mock
 
 from turbinia import config
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia import output_manager
 from turbinia import workers
 
@@ -118,7 +118,7 @@ class TestLocalOutputManager(unittest.TestCase):
     test_file = 'test-file.out'
     src_file = os.path.join(tmp_dir, test_file)
     dst_file = os.path.join(local_dir, test_file)
-    test_evidence = evidence.Evidence()
+    test_evidence = interface.Evidence()
 
     with open(src_file, 'w') as fh:
       fh.write(test_contents)
@@ -128,7 +128,7 @@ class TestLocalOutputManager(unittest.TestCase):
     return_evidence = self.task.output_manager.save_evidence(
         test_evidence, self.task.result)
     self.assertTrue(os.path.exists(dst_file))
-    self.assertIsInstance(return_evidence, evidence.Evidence)
+    self.assertIsInstance(return_evidence, interface.Evidence)
     self.assertIn(dst_file, return_evidence.saved_path)
     # Makes sure evidence without save_metadata set does not generate a
     # metadata file
@@ -147,7 +147,7 @@ class TestLocalOutputManager(unittest.TestCase):
     test_file = 'test-file.out'
     src_file = os.path.join(tmp_dir, test_file)
     dst_file = os.path.join(local_dir, test_file)
-    test_evidence = evidence.Evidence()
+    test_evidence = interface.Evidence()
     test_evidence.save_metadata = True
     config_input = {'foo': 'bar'}
     test_evidence.config = config_input
@@ -160,7 +160,7 @@ class TestLocalOutputManager(unittest.TestCase):
     return_evidence = self.task.output_manager.save_evidence(
         test_evidence, self.task.result)
     self.assertTrue(os.path.exists(dst_file))
-    self.assertIsInstance(return_evidence, evidence.Evidence)
+    self.assertIsInstance(return_evidence, interface.Evidence)
     self.assertIn(dst_file, return_evidence.saved_path)
     metadata_file = '{0:s}.metadata.json'.format(dst_file)
     self.assertTrue(os.path.exists(metadata_file))

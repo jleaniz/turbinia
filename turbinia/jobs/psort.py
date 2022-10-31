@@ -16,8 +16,7 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import PlasoFile
-from turbinia.evidence import PlasoCsvFile
+from turbinia.evidence.plaso import PlasoFile, PlasoCsvFile
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.psort import PsortTask
@@ -44,4 +43,4 @@ class PsortJob(interface.TurbiniaJob):
     return [PsortTask() for _ in evidence]
 
 
-manager.JobsManager.RegisterJob(PsortJob)
+manager.JobsManager.Register(PsortJob)

@@ -15,14 +15,10 @@
 """Tests for the Docker Containers Enumeration job."""
 
 from __future__ import unicode_literals
-from io import StringIO
 
 import unittest
-import textwrap
 import mock
 
-from turbinia.evidence import BulkExtractorOutput
-from turbinia.evidence import PhotorecOutput
 from turbinia.workers import docker
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import TurbiniaTaskResult

@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 """Tests for the job manager."""
 
-from __future__ import unicode_literals
-
 import unittest
 
 from turbinia import TurbiniaException
@@ -43,58 +41,58 @@ class JobsManagerTest(unittest.TestCase):
     """Cleans up after running an individual test."""
     # Deregister the test jobs if the test failed.
     try:
-      manager.JobsManager.DeregisterJob(TestJob1)
+      manager.JobsManager.DeRegister(TestJob1)
     except KeyError:
       pass
     try:
-      manager.JobsManager.DeregisterJob(TestJob2)
+      manager.JobsManager.DeRegister(TestJob2)
     except KeyError:
       pass
 
   def testJobRegistration(self):
     """Tests the registration and deregistration of jobs."""
     number_of_jobs = len(manager.JobsManager._job_classes)
-    manager.JobsManager.RegisterJob(TestJob1)
+    manager.JobsManager.Register(TestJob1)
     self.assertEqual(number_of_jobs + 1, len(manager.JobsManager._job_classes))
 
     with self.assertRaises(KeyError):
-      manager.JobsManager.RegisterJob(TestJob1)
+      manager.JobsManager.Register(TestJob1)
 
-    manager.JobsManager.DeregisterJob(TestJob1)
+    manager.JobsManager.DeRegister(TestJob1)
 
     self.assertEqual(number_of_jobs, len(manager.JobsManager._job_classes))
 
     number_of_jobs = len(manager.JobsManager._job_classes)
-    manager.JobsManager.RegisterJobs([TestJob1, TestJob2])
+    manager.JobsManager.Registers([TestJob1, TestJob2])
     self.assertEqual(number_of_jobs + 2, len(manager.JobsManager._job_classes))
 
     with self.assertRaises(KeyError):
-      manager.JobsManager.RegisterJob(TestJob1)
+      manager.JobsManager.Register(TestJob1)
 
-    manager.JobsManager.DeregisterJob(TestJob1)
-    manager.JobsManager.DeregisterJob(TestJob2)
+    manager.JobsManager.DeRegister(TestJob1)
+    manager.JobsManager.DeRegister(TestJob2)
 
     self.assertEqual(number_of_jobs, len(manager.JobsManager._job_classes))
 
   def testJobDeregistrationWithUnknownAllowlist(self):
     """Test that deregistration throws error when allowlisting unknown Job."""
     self.assertRaises(
-        TurbiniaException, manager.JobsManager.DeregisterJobs, [], ['NoJob'])
+        TurbiniaException, manager.JobsManager.DeRegisters, [], ['NoJob'])
 
   def testGetJobInstance(self):
     """Tests the GetJobInstance function."""
-    manager.JobsManager.RegisterJob(TestJob1)
+    manager.JobsManager.Register(TestJob1)
     job = manager.JobsManager.GetJobInstance('testjob1')
     self.assertIsNotNone(job)
     self.assertEqual(job.NAME, 'testjob1')
 
     with self.assertRaises(KeyError):
       manager.JobsManager.GetJobInstance('bogus')
-    manager.JobsManager.DeregisterJob(TestJob1)
+    manager.JobsManager.DeRegister(TestJob1)
 
   def testGetJobInstances(self):
     """Tests getting job objects by name."""
-    manager.JobsManager.RegisterJob(TestJob1)
+    manager.JobsManager.Register(TestJob1)
     job_names = manager.JobsManager.GetJobNames()
     jobs = manager.JobsManager.GetJobInstances(job_names)
     self.assertEqual(len(job_names), len(jobs))

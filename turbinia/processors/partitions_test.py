@@ -17,7 +17,7 @@
 import os
 import unittest
 
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia import TurbiniaException
 from turbinia.processors import partitions
 
@@ -41,14 +41,14 @@ class PartitionsProcessorTest(unittest.TestCase):
   def testEnumerateOnAPFS(self):
     """Test Enumerate on APFS."""
     test_path = self._getTestDataPath('apfs.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
     path_specs = partitions.Enumerate(test_evidence)
     self.assertEqual(len(path_specs), 1)
 
   def testEnumerateOnEncryptedAPFS(self):
     """Test Enumerate on encrypted APFS."""
     test_path = self._getTestDataPath('apfs_encrypted.dmg')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
 
     # Test without credentials
     with self.assertRaises(TurbiniaException):
@@ -67,7 +67,7 @@ class PartitionsProcessorTest(unittest.TestCase):
   def testEnumerateOnBDE(self):
     """Test Enumerate on BDE."""
     test_path = self._getTestDataPath('bdetogo.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
 
     # Test without credentials
     with self.assertRaises(TurbiniaException):
@@ -90,27 +90,27 @@ class PartitionsProcessorTest(unittest.TestCase):
   def testEnumerateOnGPTImage(self):
     """Test Enumerate on GPT image."""
     test_path = self._getTestDataPath('gpt.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
     path_specs = partitions.Enumerate(test_evidence)
     self.assertEqual(len(path_specs), 2)
 
   def testEnumerateOnLVM(self):
     """Test Enumerate on LVM image."""
     test_path = self._getTestDataPath('lvm.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
     path_specs = partitions.Enumerate(test_evidence)
     self.assertEqual(len(path_specs), 1)
 
   def testEnumerateOnPartitionedImage(self):
     """Test Enumerate on partitioned image."""
     test_path = self._getTestDataPath('mbr.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
     path_specs = partitions.Enumerate(test_evidence)
     self.assertEqual(len(path_specs), 2)
 
   def testEnumerateOnRaw(self):
     """Test Enumerate on raw image."""
     test_path = self._getTestDataPath('ext2.raw')
-    test_evidence = evidence.RawDisk(source_path=test_path)
+    test_evidence = interface.RawDisk(source_path=test_path)
     path_specs = partitions.Enumerate(test_evidence)
     self.assertEqual(len(path_specs), 1)

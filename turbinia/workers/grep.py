@@ -18,7 +18,7 @@ from __future__ import unicode_literals
 
 import os
 
-from turbinia.evidence import FilteredTextFile
+from turbinia.evidence.text_file import FilteredTextFile
 from turbinia.workers import TurbiniaTask
 from turbinia.lib.file_helpers import write_list_to_temp_file
 

@@ -22,7 +22,8 @@ import tempfile
 import unittest
 import mock
 
-from turbinia import evidence
+from turbinia.evidence import interface
+from turbinia.evidence import raw
 from turbinia import TurbiniaException
 from turbinia.workers import TurbiniaTask
 from turbinia.workers import TurbiniaTaskResult
@@ -44,7 +45,7 @@ class TestTurbiniaTaskBase(unittest.TestCase):
       result(TurbiniaResult): The result object used by the Task
     """
 
-  def setUp(self, task_class=TurbiniaTask, evidence_class=evidence.RawDisk):
+  def setUp(self, task_class=TurbiniaTask, evidence_class=raw.RawDisk):
     self.task_class = task_class
     self.evidence_class = evidence_class
     self.remove_files = []
@@ -67,8 +68,8 @@ class TestTurbiniaTaskBase(unittest.TestCase):
     self.remove_files.append(test_disk_path)
     self.test_stdout_path = tempfile.mkstemp(dir=self.base_output_dir)[1]
     self.remove_files.append(self.test_stdout_path)
-    self.evidence = evidence.EvidenceCollection(
-        collection=[evidence.RawDisk(source_path=test_disk_path)])
+    self.evidence = interface.EvidenceCollection(
+        collection=[raw.RawDisk(source_path=test_disk_path)])
     self.evidence.config['abort'] = False
     self.evidence.config['globals'] = {}
     self.evidence.preprocess = mock.MagicMock()
@@ -105,7 +106,7 @@ class TestTurbiniaTaskBase(unittest.TestCase):
     if validate_result is None:
       validate_result = self.result
 
-    self.result.input_evidence = evidence.RawDisk()
+    self.result.input_evidence = raw.RawDisk()
     self.result.status = 'TestStatus'
     self.result.update_task_status = mock.MagicMock()
     self.result.close = mock.MagicMock()
@@ -127,7 +128,7 @@ class TestTurbiniaTask(TestTurbiniaTaskBase):
 
   def testTurbiniaTaskCloseTruncate(self):
     """Tests that the close method will truncate large report output."""
-    evidence_ = evidence.ReportText(source_path='/no/path')
+    evidence_ = interface.ReportText(source_path='/no/path')
     max_size = 2**20
     evidence_.text_data = 'A' * max_size
     self.result.add_evidence(evidence_, self.task._evidence_config)
@@ -250,7 +251,7 @@ class TestTurbiniaTask(TestTurbiniaTaskBase):
   def testTurbiniaTaskEvidenceValidationFailure(self, evidence_decode_mock):
     """Tests Task fails when evidence validation fails."""
     self.setResults()
-    test_evidence = evidence.RawDisk()
+    test_evidence = raw.RawDisk()
     test_evidence.REQUIRED_ATTRIBUTES = ['doesnotexist']
     evidence_decode_mock.return_value = test_evidence
     test_result = self.task.run_wrapper(test_evidence.__dict__)
@@ -400,8 +401,8 @@ class TestTurbiniaTask(TestTurbiniaTaskBase):
   def testEvidenceSetupStateNotFulfilled(self):
     """Test that evidence setup throws exception when states don't match."""
     self.evidence.preprocess = mock.MagicMock()
-    self.evidence.POSSIBLE_STATES = [evidence.EvidenceState.ATTACHED]
-    self.task.REQUIRED_STATES = [evidence.EvidenceState.ATTACHED]
+    self.evidence.POSSIBLE_STATES = [interface.interface.EvidenceState.ATTACHED]
+    self.task.REQUIRED_STATES = [interface.interface.EvidenceState.ATTACHED]
 
     # The current state of the evience as shown in evidence.state[ATTACHED] is
     # not True, so this should throw an exception
@@ -409,7 +410,7 @@ class TestTurbiniaTask(TestTurbiniaTaskBase):
         TurbiniaException, self.task.evidence_setup, self.evidence)
 
     # Runs fine after setting the state
-    self.evidence.state[evidence.EvidenceState.ATTACHED] = True
+    self.evidence.state[interface.interface.EvidenceState.ATTACHED] = True
     self.task.evidence_setup(self.evidence)
 
   def testAddEvidence(self):

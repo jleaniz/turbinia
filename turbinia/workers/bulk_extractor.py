@@ -21,8 +21,8 @@ import xml.etree.ElementTree as xml_tree
 from turbinia import config
 from turbinia import TurbiniaException
 
-from turbinia.evidence import BulkExtractorOutput
-from turbinia.evidence import EvidenceState as state
+from turbinia.evidence.directory import BulkExtractorOutput
+from turbinia.evidence.interface import EvidenceState as state
 from turbinia.workers import TurbiniaTask
 from turbinia.lib import text_formatter as fmt
 

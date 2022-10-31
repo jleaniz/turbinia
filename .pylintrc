@@ -15,7 +15,7 @@ ignore=third_party
 ignore-patterns=
 
 # Pickle collected data for later comparisons.
-persistent=no
+persistent=yes
 
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.

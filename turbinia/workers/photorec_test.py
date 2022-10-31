@@ -21,7 +21,7 @@ import unittest
 import textwrap
 import mock
 
-from turbinia.evidence import PhotorecOutput
+from turbinia.evidence.interface import PhotorecOutput
 from turbinia.workers import photorec
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import TurbiniaTaskResult

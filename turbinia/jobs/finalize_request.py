@@ -16,7 +16,7 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import FinalReport
+from turbinia.evidence.text_file import FinalReport
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.finalize_request import FinalizeRequestTask
@@ -48,4 +48,4 @@ class FinalizeRequestJob(interface.TurbiniaJob):
     return [FinalizeRequestTask() for _ in evidence]
 
 
-manager.JobsManager.RegisterJob(FinalizeRequestJob)
+manager.JobsManager.Register(FinalizeRequestJob)

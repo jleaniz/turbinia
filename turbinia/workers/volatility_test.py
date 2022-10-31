@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import os
 import mock
 
-from turbinia.evidence import RawMemory
+from turbinia.evidence.memory import RawMemory
 from turbinia.workers.workers_test import TestTurbiniaTaskBase
 from turbinia.workers import volatility
 

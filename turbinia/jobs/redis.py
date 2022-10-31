@@ -14,19 +14,15 @@
 # limitations under the License.
 """Job to execute redis_config analysis task."""
 
-from __future__ import unicode_literals
-
 from turbinia.workers import artifact
 from turbinia.workers import redis
-from turbinia.evidence import ContainerdContainer
-from turbinia.evidence import Directory
-from turbinia.evidence import DockerContainer
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import RawDisk
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import ExportedFileArtifact
-from turbinia.evidence import ReportText
+from turbinia.evidence.containers import ContainerdContainer, DockerContainer
+from turbinia.evidence.directory import Directory
+from turbinia.evidence.gcp import GoogleCloudDisk, GoogleCloudDiskRawEmbedded
+from turbinia.evidence.raw import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.exported_file_artifact import ExportedFileArtifact
+from turbinia.evidence.text_file import ReportText
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 

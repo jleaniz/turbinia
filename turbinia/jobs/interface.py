@@ -13,11 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Interface for Jobs."""
+from lib2to3.pgen2.token import NAME
 import uuid
 
 import logging
 
-from turbinia.evidence import EvidenceCollection
+from turbinia.evidence.interface import EvidenceCollection
 
 log = logging.getLogger('turbinia')
 
@@ -55,6 +56,7 @@ class TurbiniaJob:
     self.evidence.request_id = request_id
     self.evidence.config = evidence_config if evidence_config else {}
     self.timeout = None
+    self.type = self.NAME
 
   def check_done(self):
     """Check to see if all Tasks for this Job have completed.
@@ -62,10 +64,7 @@ class TurbiniaJob:
     Returns:
       bool: True if all Tasks have completed, else False.
     """
-    if self.completed_task_count and not self.tasks:
-      return True
-    else:
-      return False
+    return bool(self.completed_task_count and not self.tasks)
 
   def create_tasks(self, evidence):
     """Create Turbinia tasks to be run.

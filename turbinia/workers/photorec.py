@@ -19,8 +19,8 @@ import os
 
 from turbinia import TurbiniaException
 from turbinia.workers import TurbiniaTask
-from turbinia.evidence import EvidenceState as state
-from turbinia.evidence import PhotorecOutput
+from turbinia.evidence.interface import EvidenceState as state
+from turbinia.evidence.directory import PhotorecOutput
 
 
 class PhotorecTask(TurbiniaTask):

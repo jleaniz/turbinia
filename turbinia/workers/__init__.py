@@ -36,7 +36,7 @@ import turbinia
 
 from turbinia import config
 from turbinia.config import DATETIME_FORMAT
-from turbinia import evidence
+from turbinia.evidence import interface
 from turbinia.processors import resource_manager
 from turbinia import output_manager
 from turbinia import state_manager
@@ -126,7 +126,7 @@ class TurbiniaTaskResult:
     """Initialize the TurbiniaTaskResult object."""
 
     self.closed = False
-    self.evidence = evidence_collection if evidence_collection else evidence.EvidenceCollection(
+    self.evidence = evidence_collection if evidence_collection else interface.EvidenceCollection(
     )
     self.input_evidence = input_evidence
     self.id = uuid.uuid4().hex
@@ -210,7 +210,7 @@ class TurbiniaTaskResult:
     self.log(status)
     self.status = status
 
-    for evidence in self.evidence:
+    for evidence in self.evidence.collection:
       if evidence.source_path:
         if os.path.exists(evidence.source_path):
           self.saved_paths.append(evidence.source_path)
@@ -399,9 +399,9 @@ class TurbiniaTaskResult:
     if result.run_time:
       result.run_time = timedelta(seconds=result.run_time)
     if result.input_evidence:
-      result.input_evidence = evidence.evidence_decode(result.input_evidence)
+      result.input_evidence = interface.evidence_decode(result.input_evidence)
     result.evidence.collection = [
-        evidence.evidence_decode(x) for x in result.evidence.collection
+        interface.evidence_decode(x) for x in result.evidence.collection
     ]
 
     return result
@@ -973,7 +973,7 @@ class TurbiniaTask:
 
     log.debug('Task {0:s} {1:s} awaiting execution'.format(self.name, self.id))
     try:
-      evidence = evidence_decode(evidence)
+      evidence = interface.EvidenceManager.evidence_decode(evidence)
       self.result = self.setup(evidence)
       self.result.update_task_status(self, 'queued')
       turbinia_worker_tasks_queued_total.inc()

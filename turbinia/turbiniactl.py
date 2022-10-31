@@ -895,7 +895,7 @@ def process_evidence(
     reason (str): Reason or justification to Turbinia requests.
     all_args (str): a string of commandline arguments provided to run client.
     """
-  from turbinia import evidence
+  from turbinia.evidence import interface
 
   # Set request id
   request_id = args.request_id if args.request_id else uuid.uuid4().hex
@@ -904,10 +904,10 @@ def process_evidence(
   evidence_ = None
 
   if args.command == 'rawdisk':
-    evidence_ = evidence.RawDisk(
+    evidence_ = interface.RawDisk(
         name=name, source_path=os.path.abspath(source_path), source=source)
   elif args.command == 'ewfdisk':
-    evidence_ = evidence.EwfDisk(
+    evidence_ = interface.EwfDisk(
         name=name, source_path=os.path.abspath(source_path), source=source)
   elif args.command == 'directory':
     source_path = os.path.abspath(source_path)
@@ -917,24 +917,24 @@ def process_evidence(
           'Compressing the directory for GCS upload.')
       source_path = archive.CompressDirectory(
           source_path, output_path=config.TMP_DIR)
-      evidence_ = evidence.CompressedDirectory(
+      evidence_ = interface.CompressedDirectory(
           name=name, source_path=source_path, source=source)
     else:
-      evidence_ = evidence.Directory(
+      evidence_ = interface.Directory(
           name=name, source_path=source_path, source=source)
   elif args.command == 'compresseddirectory':
     archive.ValidateTarFile(source_path)
-    evidence_ = evidence.CompressedDirectory(
+    evidence_ = interface.CompressedDirectory(
         name=name, source_path=os.path.abspath(source_path), source=source)
   elif args.command == 'googleclouddisk':
-    evidence_ = evidence.GoogleCloudDisk(
+    evidence_ = interface.GoogleCloudDisk(
         name=name, disk_name=disk_name, project=project, zone=zone,
         source=source)
   elif args.command == 'googleclouddiskembedded':
-    parent_evidence_ = evidence.GoogleCloudDisk(
+    parent_evidence_ = interface.GoogleCloudDisk(
         name=name, disk_name=disk_name, project=project, source=source,
         mount_partition=mount_partition, zone=zone)
-    evidence_ = evidence.GoogleCloudDiskRawEmbedded(
+    evidence_ = interface.GoogleCloudDiskRawEmbedded(
         name=name, disk_name=disk_name, project=project, zone=zone,
         embedded_path=embedded_path)
     evidence_.set_parent(parent_evidence_)
@@ -946,12 +946,12 @@ def process_evidence(
       msg = 'Browser type not supported.'
       raise TurbiniaException(msg)
     source_path = os.path.abspath(source_path)
-    evidence_ = evidence.ChromiumProfile(
+    evidence_ = interface.ChromiumProfile(
         name=name, source_path=source_path, output_format=format,
         browser_type=browser_type)
   elif args.command == 'rawmemory':
     source_path = os.path.abspath(source_path)
-    evidence_ = evidence.RawMemory(
+    evidence_ = interface.RawMemory(
         name=name, source_path=source_path, profile=profile,
         module_list=args.module_list)
 

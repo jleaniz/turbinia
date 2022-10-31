@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import RawMemory
-from turbinia.evidence import VolatilityReport
+from turbinia.evidence.memory import RawMemory
+from turbinia.evidence.text_file import VolatilityReport
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.volatility import VolatilityTask
@@ -52,4 +52,4 @@ class VolatilityJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(VolatilityJob)
+manager.JobsManager.Register(VolatilityJob)

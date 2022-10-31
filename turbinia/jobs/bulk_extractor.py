@@ -16,11 +16,11 @@
 
 from __future__ import unicode_literals
 
-from turbinia.evidence import GoogleCloudDisk
-from turbinia.evidence import GoogleCloudDiskRawEmbedded
-from turbinia.evidence import RawDisk
-from turbinia.evidence import EwfDisk
-from turbinia.evidence import BulkExtractorOutput
+from turbinia.evidence.gcp import GoogleCloudDisk
+from turbinia.evidence.gcp import GoogleCloudDiskRawEmbedded
+from turbinia.evidence.raw import RawDisk
+from turbinia.evidence.ewf import EwfDisk
+from turbinia.evidence.directory import BulkExtractorOutput
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.bulk_extractor import BulkExtractorTask
@@ -55,4 +55,4 @@ class BulkExtractorJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(BulkExtractorJob)
+manager.JobsManager.Register(BulkExtractorJob)

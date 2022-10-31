@@ -14,12 +14,10 @@
 # limitations under the License.
 """Job to execute postgresql_acct analysis task."""
 
-from turbinia.evidence import CompressedDirectory
-from turbinia.evidence import ContainerdContainer
-from turbinia.evidence import Directory
-from turbinia.evidence import DiskPartition
-from turbinia.evidence import DockerContainer
-from turbinia.evidence import ReportText
+from turbinia.evidence.directory import CompressedDirectory, Directory
+from turbinia.evidence.containers import ContainerdContainer, DockerContainer
+from turbinia.evidence.disk_partition import DiskPartition
+from turbinia.evidence.text_file import ReportText
 from turbinia.jobs import interface
 from turbinia.jobs import manager
 from turbinia.workers.analysis import postgresql_acct
@@ -48,4 +46,4 @@ class PostgresAcctAnalysisJob(interface.TurbiniaJob):
     return tasks
 
 
-manager.JobsManager.RegisterJob(PostgresAcctAnalysisJob)
+manager.JobsManager.Register(PostgresAcctAnalysisJob)
