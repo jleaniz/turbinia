@@ -214,9 +214,17 @@ def task_runner(obj, *args, **kwargs):
     # *Always* make sure we release the lock
     finally:
       lock.release()
-  # Celery is configured to receive only one Task per worker
-  # so no need to create a FileLock.
+  # Celery is configured to receive only one Task per worker.
+  # We still need a file lock because it is used to prevent
+  # k8s pods from shutting down prematurely.
   elif config.TASK_MANAGER.lower() == 'celery':
-    run = obj.run_wrapper(*args, **kwargs)
-
+    try:
+      timeout = 10
+      with lock.acquire(timeout=timeout):
+        run = obj.run_wrapper(*args, **kwargs)
+    except filelock.Timeout:
+      log.error('A task is already running on this worker.')
+      raise TurbiniaException('A task is already running on this worker.')
+    finally:
+      lock.release()
   return run
