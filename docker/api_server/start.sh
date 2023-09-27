@@ -6,10 +6,13 @@ then
     echo "${TURBINIA_CONF}" | base64 -d > /etc/turbinia/turbinia.conf
 fi
 
-. /venv/bin/activate
-
 # Start Turbinia API server
-/venv/bin/turbiniactl api_server
+if [ ! -z ${TURBINIA_LOG_FILE+x} ]
+then
+    /usr/local/bin/turbiniactl $TURBINIA_EXTRA_ARGS -L $TURBINIA_LOG_FILE api_server
+else
+    /usr/local/bin/turbiniactl $TURBINIA_EXTRA_ARGS api_server
+fi
 
 # Don't exit
 while sleep 1000; do :; done

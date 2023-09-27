@@ -15,8 +15,9 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install git python3-pip
 RUN pip3 install pip --upgrade
 
+# Use the REELASE_TAG argument passed via --build-arg cli argument
 ARG RELEASE_TAG
-RUN pip3 install turbinia==$RELEASE_TAG
+RUN pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ turbinia==$RELEASE_TAG
 
 RUN useradd -r -s /bin/nologinpoet -u 999 turbinia
 RUN mkdir /etc/turbinia && mkdir -p /mnt/turbinia/ && mkdir -p /var/lib/turbinia/ \
