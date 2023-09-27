@@ -14,8 +14,10 @@ COPY --from=build-stage /tmp/web/dist /web/dist
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install git python3-pip
 RUN pip3 install pip --upgrade
+
 ARG RELEASE_TAG
 RUN pip3 install turbinia==$RELEASE_TAG
+
 RUN useradd -r -s /bin/nologinpoet -u 999 turbinia
 RUN mkdir /etc/turbinia && mkdir -p /mnt/turbinia/ && mkdir -p /var/lib/turbinia/ \
     && mkdir -p /var/log/turbinia/ && chown -R turbinia:turbinia /mnt/turbinia/ \
