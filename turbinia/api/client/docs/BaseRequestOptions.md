@@ -3,6 +3,7 @@
 Base Request Options class to be extended by other option types. 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **filter_patterns** | **List[str]** |  | [optional] 
@@ -27,7 +28,7 @@ json = "{}"
 # create an instance of BaseRequestOptions from a JSON string
 base_request_options_instance = BaseRequestOptions.from_json(json)
 # print the JSON string representation of the object
-print BaseRequestOptions.to_json()
+print(BaseRequestOptions.to_json())
 
 # convert the object into a dict
 base_request_options_dict = base_request_options_instance.to_dict()

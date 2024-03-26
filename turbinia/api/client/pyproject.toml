@@ -1,29 +1,32 @@
 [tool.poetry]
-name = "turbinia-api-lib"
-version = "1.0.3"
+name = "turbinia_api_lib"
+version = "1.0.4"
 description = "Turbinia API Server"
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "Apache License 2.0"
 readme = "README.md"
-repository = "https://github.com/google/turbinia"
+repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Turbinia API Server"]
 include = ["turbinia_api_lib/py.typed"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 
 urllib3 = [
   {version = ">=1.25.4,<1.27", python = "<3.10"},
   {version = ">=1.25.4,<2.1", python = ">=3.10"}
 ]
 python-dateutil = ">=2.8.2"
-pydantic = "^1.10.5, <2"
-aenum = ">=3.1.11"
+pydantic = ">=2"
+typing-extensions = ">=4.7.1"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=7.2.1"
 tox = ">=3.9.0"
 flake8 = ">=4.0.0"
+types-python-dateutil = ">=2.8.19.14"
+mypy = "1.4.1"
+
 
 [build-system]
 requires = ["setuptools"]
@@ -31,3 +34,41 @@ build-backend = "setuptools.build_meta"
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
+
+[tool.mypy]
+files = [
+  "turbinia_api_lib",
+  #"test",  # auto-generated tests
+  "tests", # hand-written tests
+]
+# TODO: enable "strict" once all these individual checks are passing
+# strict = true
+
+# List from: https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+## Getting these passing should be easy
+strict_equality = true
+strict_concatenate = true
+
+## Strongly recommend enabling this one as soon as you can
+check_untyped_defs = true
+
+## These shouldn't be too much additional work, but may be tricky to
+## get passing if you use a lot of untyped libraries
+disallow_subclassing_any = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+
+### These next few are various gradations of forcing use of type annotations
+#disallow_untyped_calls = true
+#disallow_incomplete_defs = true
+#disallow_untyped_defs = true
+#
+### This one isn't too hard to get passing, but return on investment is lower
+#no_implicit_reexport = true
+#
+### This one can be tricky to get passing if you use a lot of untyped libraries
+#warn_return_any = true

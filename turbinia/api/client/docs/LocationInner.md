@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 
@@ -15,7 +16,7 @@ json = "{}"
 # create an instance of LocationInner from a JSON string
 location_inner_instance = LocationInner.from_json(json)
 # print the JSON string representation of the object
-print LocationInner.to_json()
+print(LocationInner.to_json())
 
 # convert the object into a dict
 location_inner_dict = location_inner_instance.to_dict()

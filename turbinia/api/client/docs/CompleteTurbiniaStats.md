@@ -3,6 +3,7 @@
 Statistics for different groups of tasks.
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **all_tasks** | **object** |  | [optional] 
@@ -23,7 +24,7 @@ json = "{}"
 # create an instance of CompleteTurbiniaStats from a JSON string
 complete_turbinia_stats_instance = CompleteTurbiniaStats.from_json(json)
 # print the JSON string representation of the object
-print CompleteTurbiniaStats.to_json()
+print(CompleteTurbiniaStats.to_json())
 
 # convert the object into a dict
 complete_turbinia_stats_dict = complete_turbinia_stats_instance.to_dict()

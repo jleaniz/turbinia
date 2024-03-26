@@ -18,9 +18,8 @@ Returns a list BaseRequestOptions attributes.
 ### Example
 
 * OAuth Authentication (oAuth2):
+
 ```python
-import time
-import os
 import turbinia_api_lib
 from turbinia_api_lib.rest import ApiException
 from pprint import pprint
@@ -55,6 +54,7 @@ with turbinia_api_lib.ApiClient(configuration) as api_client:
 
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -71,6 +71,7 @@ This endpoint does not need any parameter.
  - **Accept**: application/json
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
@@ -87,9 +88,8 @@ Retrieve turbinia config.
 ### Example
 
 * OAuth Authentication (oAuth2):
+
 ```python
-import time
-import os
 import turbinia_api_lib
 from turbinia_api_lib.rest import ApiException
 from pprint import pprint
@@ -124,6 +124,7 @@ with turbinia_api_lib.ApiClient(configuration) as api_client:
 
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -140,6 +141,7 @@ This endpoint does not need any parameter.
  - **Accept**: application/json
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
